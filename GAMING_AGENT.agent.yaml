@@ -1,0 +1,72 @@
+tools:
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "players"
+      description: "Player demographics, regions, tiers, and signup info"
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "console_catalog"
+      description: "Consoles, games, genres, and ratings"
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "engagement"
+      description: "Session activity, play time, and achievements"
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "store"
+      description: "Purchases, subscriptions, and revenue"
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "support"
+      description: "Support tickets, resolution times, and satisfaction"
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "executive"
+      description: "Cross-domain KPIs combining all layers via composable imports"
+
+tool_resources:
+  players:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_PLAYERS"
+  console_catalog:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_CONSOLE_CATALOG"
+  engagement:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_ENGAGEMENT"
+  store:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_STORE"
+  support:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_SUPPORT"
+  executive:
+    execution_environment:
+      type: "warehouse"
+      warehouse: "COMPUTE_WH"
+    semantic_view: "DEMO_DB.GAMING.SV_EXECUTIVE"
+
+instructions:
+  system: >
+    You are a gaming analytics assistant with access to a composable semantic view hierarchy.
+  orchestration: >
+    Use the most specific tool for each question:
+    - players: Player demographics, regions, tiers, signup info
+    - console_catalog: Consoles, games, genres, ratings
+    - engagement: Session activity, play time, achievements
+    - store: Purchases, subscriptions, revenue
+    - support: Support tickets, resolution times, satisfaction
+    - executive: Cross-domain KPIs that span multiple areas (it transitively imports all other views)
+    For questions that span multiple domains, prefer the executive tool.
+  response: >
+    Be concise. Present data in tables when appropriate. Include the SQL used.
